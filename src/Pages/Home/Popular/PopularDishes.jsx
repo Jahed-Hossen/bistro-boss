@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SectionTittle from '../../shared/section tittle/SectionTittle';
 import MenuItem from '../../shared/Menuitem/MenuItem';
 import useMenu from '../../shared/Hookes/useMenu';
+import { Link } from 'react-router-dom';
 
 const PopularDishes = () => {
 
@@ -26,7 +27,7 @@ const PopularDishes = () => {
             
             </div> 
             <div className='items-center flex flex-col mt-12 mb-6 '>
-                <button className='btn border-black border-0 border-b-4 '>View Full  Menu</button>
+               <Link to='/menu'> <button className='btn border-black border-0 border-b-4 '>View Full  Menu</button></Link>
             </div>
              
         </section>

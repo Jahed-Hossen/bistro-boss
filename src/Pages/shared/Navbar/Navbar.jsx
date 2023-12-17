@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Arthcontext } from '../../../provider/ArthProvider';
 
 const Navbar = () => {
+ const {user,logOut}=useContext(Arthcontext)
+
+ const handleLogOut = () => {
+         logOut()
+        .then(() => { })
+        .catch(error => console.log(error));
+}
+
+
 
     const navOption = <>
         <li><Link to='/'>HOME</Link></li>
         <li><Link to='/menu '>MENU</Link></li>
-        <li><Link to='/order '>ORDER FOOD</Link></li>
+        <li><Link to='/order/salads '>ORDER FOOD</Link></li>
+        
+        {
+            user ? 
+            <li onClick={handleLogOut}><Link>LOG OUT</Link> </li>:<li><Link to='/login'>LOG IN</Link></li>
+           
+        }
     </>
     return (
         <>
@@ -20,7 +36,7 @@ const Navbar = () => {
                             {navOption}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost ">daisyUI</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-white ">

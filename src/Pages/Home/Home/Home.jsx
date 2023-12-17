@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from '../banner/Banner';
-import Categoris from '../Caegoris/categoris';
+import Categoris from '../Caegoris/Categoris';
 import Banner2 from '../banner/Banner2';
 import PopularDishes from '../Popular/PopularDishes';
 import Recomended from '../salad item/Recomended';
