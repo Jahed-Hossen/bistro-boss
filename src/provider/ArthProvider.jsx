@@ -1,57 +1,66 @@
-import React, {  createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import React, { createContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from '../firebase/firebse.config';
 
 
 
-export const Arthcontext =createContext(null)
+export const Arthcontext = createContext(null)
 
 const auth = getAuth(app);
 
-const ArthProvider = ({children}) => {
-  
-  
-  const [user,setUser]=useState(null)
-  const [lodder, setLodder]=useState(true)
+const ArthProvider = ({ children }) => {
 
-  const creatUser =(email,password)=>{
+
+  const [user, setUser] = useState(null)
+  const [lodder, setLodder] = useState(true)
+
+  const creatUser = (email, password) => {
     setLodder(true)
-    return createUserWithEmailAndPassword(auth,email,password)
+    return createUserWithEmailAndPassword(auth, email, password)
   };
 
-  const singIn =(email,password)=>{
+  const singIn = (email, password) => {
     setLodder(true);
-    return signInWithEmailAndPassword(auth,email,password)
+    return signInWithEmailAndPassword(auth, email, password)
   }
-  const logOut =()=>{
+  const logOut = () => {
     setLodder(true);
     return signOut(auth)
-  }
+  };
 
-  useEffect( ()=>{
-       const unsubscribe = onAuthStateChanged(auth, curentuser =>{
-        setUser(curentuser);
-        console.log('curentuser', curentuser)
-        setLodder(false)
+
+  const UpdateProfiledata=(name)=>{
+     updateProfile(auth.currentUser, {
+    displayName:name ,
+  })
+  }
+ 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, curentuser => {
+      setUser(curentuser);
+      console.log('curentuser', curentuser)
+      setLodder(false)
     })
-    return ()=>{
-        return unsubscribe()
+    return () => {
+      return unsubscribe()
     }
-  },[])
-  
-    const arthinfo= {
-   user,
-   lodder,
-   creatUser,
-   singIn,
-   logOut
+  }, [])
+
+  const arthinfo = {
+    user,
+    lodder,
+    creatUser,
+    singIn,
+    logOut,
+    UpdateProfiledata
   }
 
-    return (
-        <Arthcontext.Provider value={arthinfo}>
-            {children}
-        </Arthcontext.Provider>
-    );
+  return (
+    <Arthcontext.Provider value={arthinfo}>
+      {children}
+    </Arthcontext.Provider>
+  );
 };
 
 export default ArthProvider;

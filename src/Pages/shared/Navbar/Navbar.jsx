@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Arthcontext } from '../../../provider/ArthProvider';
-
+import { FaCartArrowDown } from "react-icons/fa6";
+import useCart from '../Hookes/useCart';
 const Navbar = () => {
  const {user,logOut}=useContext(Arthcontext)
-
+ const [cart]=useCart()
  const handleLogOut = () => {
          logOut()
         .then(() => { })
@@ -17,7 +18,8 @@ const Navbar = () => {
         <li><Link to='/'>HOME</Link></li>
         <li><Link to='/menu '>MENU</Link></li>
         <li><Link to='/order/salads '>ORDER FOOD</Link></li>
-        
+        <li><Link to='/secret '>SECRET</Link></li>
+       
         {
             user ? 
             <li onClick={handleLogOut}><Link>LOG OUT</Link> </li>:<li><Link to='/login'>LOG IN</Link></li>
@@ -42,10 +44,12 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 text-white ">
                         {navOption}
                     </ul>
+                </div> 
+                <div className="navbar-end gap-3 mr-5">
+                  {user ? <>{user?.displayName}</>:<></> } 
+                
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Button</a>
-                </div>
+                 <li><Link to='/dashbord/mycart'><div className="badge">+{cart?.length||0}</div><FaCartArrowDown /></Link></li>
             </div>
         </>
     );

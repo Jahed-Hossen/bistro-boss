@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Arthcontext } from '../../../provider/ArthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../../assets/others/authentication2.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import Swal from 'sweetalert2';
 const Login = () => {
     const { singIn } = useContext(Arthcontext)
     const [disabled, setDisabled] = useState(true);
-
+   const navigate = useNavigate();
+   const location = useLocation();
+   const from = location.state?.from?.pathname || "/";
     const HandelSubmit = e => {
         e.preventDefault()
         const form = e.target;
@@ -36,8 +38,9 @@ const Login = () => {
                         animate__faster
                       `
                     }
+                   
                   });
-                // ...
+              navigate(from, { replace: true });
             })
             .catch((error) => {
 

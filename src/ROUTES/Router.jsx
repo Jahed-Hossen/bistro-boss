@@ -5,6 +5,10 @@ import Menu from "../Pages/menu/menu/Menu";
 import Order from "../Pages/Order/Order/Order";
 import Login from "../Pages/login/login page/Login";
 import SingUp from "../Pages/login/singup/SingUp";
+import Secret from "../Pages/Secret/Secret";
+import PrivetRout from "./Privet route/PrivetRout";
+import Dashbord from "../Layout/Dashbord";
+import MyCart from "../Pages/Dashbord/mycart/MyCart";
 
 
 
@@ -32,10 +36,24 @@ export const router = createBrowserRouter([
         {
           path:'/singup',
           element:<SingUp></SingUp>
+        },
+        {
+          path:'/secret',
+          element: <PrivetRout><Secret></Secret></PrivetRout> 
         }
 
       ]
     },
+    {
+      path:'/dashbord',
+      element:<Dashbord></Dashbord>,
+      children:[
+        {
+          path:'mycart',
+          element:<MyCart></MyCart>
+        }
+      ]
+    }
   ]);
 
 
